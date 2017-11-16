@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Umanit\MultiSiteBundle\Utils\SiteAccessesManager;
 
 /**
- * @author Arthur Guigand <aguigand@umanit.fr>
+ * Sonata controller to manage singletons
  */
 class SingletonCRUDController extends CRUDController
 {
