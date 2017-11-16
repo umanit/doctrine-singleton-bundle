@@ -42,7 +42,7 @@ If you want to implement a more complex unicity, for example, you want the entit
 `FilterSingletonEvent::SINGLETON_FILTER_EVENT` event to modify the `filters` (filters are used in a `findBy()` clause)
 
 e.g (from [TranslationBundle]())
-```
+```php
  <?php
 
 namespace Umanit\TranslationBundle\EventSubscriber;
@@ -73,7 +73,7 @@ class SingletonSubscriber implements EventSubscriberInterface
 ```
 
 `services.yml`
-```
+```yaml
  services:
     umanit_translation.event_subscriber.doctring_singleton_filter:
         class: Umanit\TranslationBundle\EventSubscriber\SingletonSubscriber
@@ -85,13 +85,13 @@ class SingletonSubscriber implements EventSubscriberInterface
 
 In order to get your singleton instances, you can use the provided helpers for your PHP code or twig :
 
-```
+```php
 <?php
 
 $this->get('umanit_doctrine_singleton.helper')->getSingleton(AppBundle\Entity\Page::class);
 ```
 
-```
+```twig
 {% set singleton = get_singleton('AppBundle\\Entity\\Page') %}
 ```
 
@@ -108,7 +108,7 @@ If you use the `UmanitDoctrineSingletonBundle:Sonata\SingletonCRUD` as a control
 to `create` if there's no entity found, to `edit` if there's only one, and to `list` if you have more than one.
 
 e.g :
-```
+```yaml
      app.admin.page:
         class: AppBundle\Admin\PageAdmin
         arguments: [~, AppBundle\Entity\Content\Page, UmanitDoctrineSingletonBundle:Sonata\SingletonCRUD ]
