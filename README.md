@@ -41,7 +41,7 @@ Now, if you try to create 2 entities of type "Page", you'll get a `NonUniqueExce
 If you want to implement a more complex unicity, for example, you want the entity to be unique per local, you can subscribe to the
 `FilterSingletonEvent::SINGLETON_FILTER_EVENT` event to modify the `filters` (filters are used in a `findBy()` clause)
 
-e.g (from [TranslationBundle]())
+e.g (from [TranslationBundle](https://github.com/umanit/translation-bundle))
 ```php
  <?php
 
