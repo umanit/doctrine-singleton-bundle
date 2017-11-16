@@ -1,0 +1,19 @@
+services:
+    umanit_doctrine_singleton.doctrine.event_subscriber.singleton_subscriber:
+        class: Umanit\DoctrineSingletonBundle\Doctrine\EventSubscriber\SingletonSubscriber
+        arguments:
+            - '@event_dispatcher'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    umanit_doctrine_singleton.twig.singleton:
+        class: Umanit\DoctrineSingletonBundle\Twig\SingletonExtension
+        arguments:
+            - '@umanit_doctrine_singleton.helper'
+        tags:
+            - { name: twig.extension }
+
+    umanit_doctrine_singleton.helper:
+        class: Umanit\DoctrineSingletonBundle\Helper\SingletonHelper
+        arguments:
+            - '@doctrine'

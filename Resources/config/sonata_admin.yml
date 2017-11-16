@@ -1,0 +1,14 @@
+sonata_admin:
+    # Extension for singleton admins
+    extensions:
+        umanit_doctrine_singleton.admin.extension.singleton_admin_extension:
+            implements:
+                - Umanit\DoctrineSingletonBundle\Model\SingletonInterface
+
+services:
+    umanit_doctrine_singleton.admin.extension.singleton_admin_extension:
+        class: Umanit\DoctrineSingletonBundle\Admin\Extension\SingletonAdminExtension
+        tags:
+            - { name: sonata.admin.extension }
+
+
