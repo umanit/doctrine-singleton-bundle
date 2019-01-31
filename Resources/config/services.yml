@@ -17,3 +17,4 @@ services:
         class: Umanit\DoctrineSingletonBundle\Helper\SingletonHelper
         arguments:
             - '@doctrine'
+    Umanit\DoctrineSingletonBundle\Helper\SingletonHelper: '@umanit_doctrine_singleton.helper'
