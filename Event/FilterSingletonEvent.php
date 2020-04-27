@@ -61,7 +61,7 @@ class FilterSingletonEvent extends Event
     /**
      * Set filters.
      *
-     * @param string $filters
+     * @param array $filters
      *
      * @return self
      */
