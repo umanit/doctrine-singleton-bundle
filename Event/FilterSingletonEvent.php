@@ -2,7 +2,7 @@
 
 namespace Umanit\DoctrineSingletonBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Umanit\DoctrineSingletonBundle\Model\SingletonInterface;
 
 /**
@@ -12,72 +12,35 @@ class FilterSingletonEvent extends Event
 {
     const SINGLETON_FILTER_EVENT = 'umanit_doctrine_singleton.filter';
 
-    /**
-     * @var SingletonInterface
-     */
-    private $entity;
+    private ?SingletonInterface $entity;
+    private ?array $filters;
 
-    /**
-     * @var array
-     */
-    private $filters;
-
-    /**
-     * Constructor.
-     *
-     * @param SingletonInterface $entity
-     * @param array              $filters
-     */
-    public function __construct($entity, $filters)
+    public function __construct(SingletonInterface $entity, array $filters)
     {
-        $this->entity  = $entity;
+        $this->entity = $entity;
         $this->filters = $filters;
     }
 
-    /**
-     * Set entity.
-     *
-     * @param string $entity
-     *
-     * @return self
-     */
-    public function setEntity($entity)
+    public function setEntity(?SingletonInterface $entity): self
     {
         $this->entity = $entity;
 
         return $this;
     }
 
-    /**
-     * Get entity.
-     *
-     * @return SingletonInterface
-     */
-    public function getEntity()
+    public function getEntity(): SingletonInterface
     {
         return $this->entity;
     }
 
-    /**
-     * Set filters.
-     *
-     * @param array $filters
-     *
-     * @return self
-     */
-    public function setFilters($filters)
+    public function setFilters(?array $filters): self
     {
         $this->filters = $filters;
 
         return $this;
     }
 
-    /**
-     * Get filters.
-     *
-     * @return array
-     */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->filters;
     }

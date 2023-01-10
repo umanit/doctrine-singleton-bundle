@@ -1,7 +1,7 @@
 # Doctrine Singleton Bundle
 
 This bundle intends to easily create complex singleton entities (totally unique, or based on some properties).
-Sonata Admin friendly with automatic integration. 
+Sonata Admin friendly with automatic integration.
 
 ## Install
 
@@ -21,14 +21,12 @@ Just need to implement the `Umanit\DoctrineSingletonBundle\Model\SingletonInterf
 ```php
 <?php
 
-namespace AppBundle\Entity\Content;
+namespace App\Entity\Content;
 
 use Doctrine\ORM\Mapping as ORM;
 use Umanit\DoctrineSingletonBundle\Model\SingletonInterface;
 
-/**
- * @ORM\Table(name="page")
- */
+#[ORM\Table(name="page")]
 class Page implements SingletonInterface 
 {
 }
@@ -75,7 +73,7 @@ class SingletonSubscriber implements EventSubscriberInterface
 `services.yml`
 ```yaml
  services:
-    umanit_translation.event_subscriber.doctring_singleton_filter:
+    umanit_translation.event_subscriber.doctrine_singleton_filter:
         class: Umanit\TranslationBundle\EventSubscriber\SingletonSubscriber
         tags:
             - { name: kernel.event_subscriber } 
@@ -88,17 +86,17 @@ In order to get your singleton instances, you can use the provided helpers for y
 ```php
 <?php
 
-$this->get('umanit_doctrine_singleton.helper')->getSingleton(AppBundle\Entity\Page::class);
+$this->get('umanit_doctrine_singleton.helper')->getSingleton('App\Entity\Page::class');
 ```
 
 ```twig
-{% set singleton = get_singleton('AppBundle\\Entity\\Page') %}
+{% set singleton = get_singleton('App\\Entity\\Page') %}
 ```
 
-The method `getSingleton($className, array $filters = [], $instanciateIfNotFound = false)` can take from 1 to 3 arguments :
+The method `getSingleton($className, array $filters = [], $instantiateIfNotFound = false)` can take from 1 to 3 arguments :
 - `$className` : FQCN of the class to get
 - `$filters` : Filters to apply to get the singleton (e.g. : `getSingleton("MyClass", ["locale" => "en"])`)
-- `$instanciateIfNotFound` : If the entity is not found, returns an empty entity instead of `null` 
+- `$instantiateIfNotFound` : If the entity is not found, returns an empty entity instead of `null`
 
 ## Integrating into SonataAdmin
 
@@ -110,8 +108,8 @@ to `create` if there's no entity found, to `edit` if there's only one, and to `l
 e.g :
 ```yaml
      app.admin.page:
-        class: AppBundle\Admin\PageAdmin
-        arguments: [~, AppBundle\Entity\Content\Page, UmanitDoctrineSingletonBundle:Sonata\SingletonCRUD ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Content', label: 'Page' }
+         class: App\Admin\PageAdmin
+         arguments: [~, App\Entity\Content\Page, UmanitDoctrineSingletonBundle:Sonata\SingletonCRUD ]
+         tags:
+             - { name: sonata.admin, manager_type: orm, group: 'Content', label: 'Page' }
 ```

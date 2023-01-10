@@ -2,22 +2,17 @@
 
 namespace Umanit\DoctrineSingletonBundle\Admin\Extension;
 
-use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
-/**
- * SonataAdmin Extension.
- *
- * @author Axel Anceau <aanceau@umanit.fr>
- */
 class SingletonAdminExtension extends AbstractAdminExtension
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function configureActionButtons(AdminInterface $admin, $list, $action, $object)
-    {
+    public function configureActionButtons(
+        AdminInterface $admin,
+        array $list,
+        string $action,
+        ?object $object = null
+    ): array {
         // No create action on edit object
         if ($object && isset($list['create'])) {
             unset($list['create']);
