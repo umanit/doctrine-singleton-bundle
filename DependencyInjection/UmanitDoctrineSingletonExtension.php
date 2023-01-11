@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * This is the class that loads and manages your bundle configuration.
  *
- * @see http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @see https://symfony.com/doc/current/bundles/extension.html
  */
 class UmanitDoctrineSingletonExtension extends Extension implements PrependExtensionInterface
 {
@@ -20,49 +20,16 @@ class UmanitDoctrineSingletonExtension extends Extension implements PrependExten
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
-
-        // Set configuration into params
-        $rootName = 'umanit_doctrine_singleton';
-        $container->setParameter($rootName, $config);
-        $this->setConfigAsParameters($container, $config, $rootName);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param ContainerBuilder $container
-     */
     public function prepend(ContainerBuilder $container)
     {
-        $bundles = $container->getParameter('kernel.bundles');
-        // Conditionnaly load sonata_admin.yml
-        if (isset($bundles['SonataAdminBundle'])) {
+        // Conditionnaly load sonata_admin.yaml
+        if ($container->hasExtension('sonata_admin')) {
             $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-            $loader->load('sonata_admin.yml');
-        }
-    }
-
-    /**
-     * Add config keys as parameters.
-     *
-     * @param ContainerBuilder $container
-     * @param array            $params
-     * @param string           $parent
-     */
-    private function setConfigAsParameters(ContainerBuilder &$container, array $params, $parent)
-    {
-        foreach ($params as $key => $value) {
-            $name = $parent.'.'.$key;
-            $container->setParameter($name, $value);
-
-            if (is_array($value)) {
-                $this->setConfigAsParameters($container, $value, $name);
-            }
+            $loader->load('sonata_admin.yaml');
         }
     }
 }

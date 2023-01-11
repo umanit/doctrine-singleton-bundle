@@ -2,21 +2,17 @@
 
 namespace Umanit\DoctrineSingletonBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Umanit\DoctrineSingletonBundle\Helper\SingletonHelper;
 
 /**
  * Twig helpers
  */
-class SingletonExtension extends \Twig_Extension
+class SingletonExtension extends AbstractExtension
 {
-    /**
-     * @var SingletonHelper
-     */
-    private $singletonHelper;
+    private SingletonHelper $singletonHelper;
 
-    /**
-     * @param SingletonHelper $singletonHelper
-     */
     public function __construct(SingletonHelper $singletonHelper)
     {
         $this->singletonHelper = $singletonHelper;
@@ -25,10 +21,10 @@ class SingletonExtension extends \Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            new \Twig_Function('get_singleton', [$this->singletonHelper, 'getSingleton']),
-        );
+        return [
+            new TwigFunction('get_singleton', [$this->singletonHelper, 'getSingleton']),
+        ];
     }
 }

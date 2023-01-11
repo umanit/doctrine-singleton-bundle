@@ -11,16 +11,11 @@ use Umanit\DoctrineSingletonBundle\Model\SingletonInterface;
 use Umanit\TranslationBundle\Doctrine\Model\TranslatableInterface;
 
 /**
- * @author Axel Anceau <aanceau@umanit.fr>
- *
  * Subscriber that checks that en entity which implements the SingletonInterface, is unique.
  */
 class SingletonSubscriber implements Common\EventSubscriber
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param EventDispatcherInterface $eventDispatcher
@@ -42,19 +37,20 @@ class SingletonSubscriber implements Common\EventSubscriber
 
     /**
      * @param ORM\Event\LifecycleEventArgs $args
+     *
+     * @throws NonUniqueException
      */
     public function prePersist(ORM\Event\LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof SingletonInterface) {
             $className = $args->getObjectManager()->getClassMetadata(get_class($entity))->getName();
-
             $filters = [];
 
             // Event to add filters
             $event = new FilterSingletonEvent($entity, $filters);
-            $this->eventDispatcher->dispatch(FilterSingletonEvent::SINGLETON_FILTER_EVENT, $event);
+            $this->eventDispatcher->dispatch($event, FilterSingletonEvent::SINGLETON_FILTER_EVENT);
 
             $filters = $event->getFilters();
 

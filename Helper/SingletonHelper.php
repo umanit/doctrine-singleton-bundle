@@ -9,14 +9,8 @@ use Symfony\Bridge\Doctrine\ManagerRegistry;
  */
 class SingletonHelper
 {
-    /**
-     * @var ManagerRegistry
-     */
-    private $doctrine;
+    private ManagerRegistry $doctrine;
 
-    /**
-     * @param ManagerRegistry $doctrine
-     */
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
@@ -27,15 +21,15 @@ class SingletonHelper
      *
      * @param string $className             FQCN of the class to get
      * @param array  $filters               (optional) filters to get the singleton
-     * @param bool   $instanciateIfNotFound instanciate the singleton if it is not found (not saved)
+     * @param bool   $instantiateIfNotFound instantiate the singleton if it is not found (not saved)
      *
      * @return mixed
      */
-    public function getSingleton($className, array $filters = [], $instanciateIfNotFound = false)
+    public function getSingleton(string $className, array $filters = [], bool $instantiateIfNotFound = false)
     {
         $singleton = $this->doctrine->getRepository($className)->findOneBy($filters);
 
-        if (!$singleton && $instanciateIfNotFound) {
+        if (!$singleton && $instantiateIfNotFound) {
             return new $className();
         }
 

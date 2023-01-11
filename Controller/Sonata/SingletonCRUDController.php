@@ -4,17 +4,15 @@ namespace Umanit\DoctrineSingletonBundle\Controller\Sonata;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sonata\AdminBundle\Controller\CRUDController;
-use Umanit\MultiSiteBundle\Utils\SiteAccessesManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Sonata controller to manage singletons
  */
 class SingletonCRUDController extends CRUDController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function listAction()
+    public function listAction(Request $request): Response
     {
         /** @var Paginator|array $resultList */
         $resultList = $this->admin->getDatagrid()->getResults();
@@ -26,10 +24,12 @@ class SingletonCRUDController extends CRUDController
 
             if (1 === $resultList->count()) {
                 $result = $resultList->getIterator()->current();
+
                 return $this->redirect($this->admin->generateObjectUrl('edit', $result));
             }
         } else {
             $result = $this->admin->getDatagrid()->getResults();
+
             if (count($result) > 1) {
                 return parent::listAction();
             }
