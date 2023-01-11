@@ -20,14 +20,6 @@ class UmanitDoctrineSingletonExtension extends Extension implements PrependExten
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        // Set configuration into params
-        $rootName = 'umanit_doctrine_singleton';
-        $container->setParameter($rootName, $config);
-        $this->setConfigAsParameters($container, $config, $rootName);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
     }
