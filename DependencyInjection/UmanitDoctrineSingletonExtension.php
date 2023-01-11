@@ -32,23 +32,4 @@ class UmanitDoctrineSingletonExtension extends Extension implements PrependExten
             $loader->load('sonata_admin.yaml');
         }
     }
-
-    /**
-     * Add config keys as parameters.
-     *
-     * @param ContainerBuilder $container
-     * @param array            $params
-     * @param string           $parent
-     */
-    private function setConfigAsParameters(ContainerBuilder &$container, array $params, $parent)
-    {
-        foreach ($params as $key => $value) {
-            $name = $parent.'.'.$key;
-            $container->setParameter($name, $value);
-
-            if (is_array($value)) {
-                $this->setConfigAsParameters($container, $value, $name);
-            }
-        }
-    }
 }
