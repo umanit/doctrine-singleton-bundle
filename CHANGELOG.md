@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 2.0.0 - 2022-01-11
+## [2.0.1] - 2023-01-11
+
+### Fixed
+
+- Rename configuration files
+
+## 2.0.0 - 2023-01-11
 
 ### Changed
 
@@ -27,4 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adds an alias (`umanit_doctrine_singleton.controller.singleton_crudcontroller`) for the `SingletonCRUDController`
 - Initial version of this CHANGELOG
 
-[Unreleased]: https://github.com/umanit/doctrine-singleton-bundle/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/umanit/doctrine-singleton-bundle/compare/2.0.1...HEAD
+
+[2.0.1]: https://github.com/umanit/doctrine-singleton-bundle/compare/2.0.0...2.0.1
