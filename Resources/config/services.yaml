@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
     umanit_doctrine_singleton.doctrine.event_subscriber.singleton_subscriber:
         class: Umanit\DoctrineSingletonBundle\Doctrine\EventSubscriber\SingletonSubscriber
         arguments:
@@ -17,7 +21,18 @@ services:
         class: Umanit\DoctrineSingletonBundle\Helper\SingletonHelper
         arguments:
             - '@doctrine'
+
     Umanit\DoctrineSingletonBundle\Helper\SingletonHelper: '@umanit_doctrine_singleton.helper'
 
     umanit_doctrine_singleton.controller.singleton_crudcontroller:
         class: Umanit\DoctrineSingletonBundle\Controller\Sonata\SingletonCRUDController
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+        tags:
+            - { name: 'controller.service_arguments' }
+            - { name: 'container.service_subscriber' }
+        autoconfigure: true
+
+    Umanit\DoctrineSingletonBundle\Controller\Sonata\SingletonCRUDController:
+        alias: umanit_doctrine_singleton.controller.singleton_crudcontroller
+        public: true
