@@ -10,7 +10,7 @@ use Umanit\DoctrineSingletonBundle\Model\SingletonInterface;
  */
 class FilterSingletonEvent extends Event
 {
-    const SINGLETON_FILTER_EVENT = 'umanit_doctrine_singleton.filter';
+    public const SINGLETON_FILTER_EVENT = 'umanit_doctrine_singleton.filter';
 
     private ?SingletonInterface $entity;
     private ?array $filters;
