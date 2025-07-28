@@ -15,7 +15,7 @@
         "php": ">=8.0",
         "symfony/framework-bundle": ">=5.0",
         "doctrine/doctrine-bundle": "^2.7",
-        "doctrine/orm": "^2.13"
+        "doctrine/orm": "^2.13|^3.0"
     },
     "minimum-stability": "stable",
     "target-dir": "Umanit/DoctrineSingletonBundle",
