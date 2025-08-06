@@ -40,7 +40,7 @@ class SingletonSubscriber implements Common\EventSubscriber
      *
      * @throws NonUniqueException
      */
-    public function prePersist(ORM\Event\LifecycleEventArgs $args)
+    public function prePersist(ORM\Event\LifecycleEventArgs|ORM\Event\PrePersistEventArgs $args)
     {
         $entity = $args->getObject();
 
