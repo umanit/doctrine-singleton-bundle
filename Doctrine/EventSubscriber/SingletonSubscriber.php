@@ -2,50 +2,38 @@
 
 namespace Umanit\DoctrineSingletonBundle\Doctrine\EventSubscriber;
 
-use Doctrine\Common;
 use Doctrine\ORM;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Umanit\DoctrineSingletonBundle\Event\FilterSingletonEvent;
 use Umanit\DoctrineSingletonBundle\Exceptions\NonUniqueException;
 use Umanit\DoctrineSingletonBundle\Model\SingletonInterface;
-use Umanit\TranslationBundle\Doctrine\Model\TranslatableInterface;
 
 /**
- * Subscriber that checks that en entity which implements the SingletonInterface, is unique.
+ * Subscriber that checks that an entity which implements the SingletonInterface, is unique.
  */
-class SingletonSubscriber implements Common\EventSubscriber
+class SingletonSubscriber
 {
     private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return array
-     */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [ORM\Events::prePersist];
     }
 
     /**
-     * @param ORM\Event\LifecycleEventArgs $args
-     *
      * @throws NonUniqueException
      */
-    public function prePersist(ORM\Event\LifecycleEventArgs|ORM\Event\PrePersistEventArgs $args)
+    public function prePersist(ORM\Event\PrePersistEventArgs $args): void
     {
         $entity = $args->getObject();
 
         if ($entity instanceof SingletonInterface) {
-            $className = $args->getObjectManager()->getClassMetadata(get_class($entity))->getName();
+            $className = $args->getObjectManager()->getClassMetadata($entity::class)->getName();
             $filters = [];
 
             // Event to add filters
