@@ -12,14 +12,13 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
+        "php": "^8.2",
         "symfony/framework-bundle": ">=5.0",
-        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-bundle": "^2.7|^3.0",
         "doctrine/orm": "^2.13|^3.0"
     },
     "minimum-stability": "stable",
-    "target-dir": "Umanit/DoctrineSingletonBundle",
     "autoload": {
-        "psr-0": { "Umanit\\DoctrineSingletonBundle": "" }
+        "psr-4": { "Umanit\\DoctrineSingletonBundle\\": "" }
     }
 }
